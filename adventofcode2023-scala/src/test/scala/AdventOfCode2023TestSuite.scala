@@ -3,7 +3,7 @@ import com.lprakashv.adventofcode2023.Day1.{calibrateSum1, calibrateSum2}
 
 // For more information on writing tests, see
 // https://scalameta.org/munit/docs/getting-started.html
-class MySuite extends munit.FunSuite {
+class AdventOfCode2023TestSuite extends munit.FunSuite {
 
   test("day1-1") {
     assertEquals(calibrateSum1, 53921)

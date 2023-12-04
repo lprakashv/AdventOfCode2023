@@ -1,4 +1,4 @@
-(ns lprakashv.adventofcode2023.core.core
+(ns lprakashv.adventofcode2023.core
   (:gen-class)
   (:require [clojure.string :as s]))
 

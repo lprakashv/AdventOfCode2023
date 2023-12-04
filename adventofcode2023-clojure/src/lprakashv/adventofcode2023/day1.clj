@@ -1,8 +1,7 @@
-(ns lprakashv.adventofcode2023.day1.day1
+(ns lprakashv.adventofcode2023.day1
   (:gen-class)
   (:require clojure.java.io
-            [clojure.string :as s]
-            [lprakashv.adventofcode2023.core.core :refer [replace-worded-nums-to-digits]]))
+            [clojure.string :as s]))
 
 (defn- positive-numbers
   ([] (positive-numbers 1))
