@@ -8,11 +8,14 @@ object Day1 {
       .fromResource("day1_input.txt")
       .getLines
       .map:
-        _.filter(_.isDigit)
+        _.filter:
+          _.isDigit
       .flatMap: chars =>
-        chars.headOption.map:
-          _ :: chars.last :: Nil
-      .map(_.mkString.toInt)
+        chars.headOption
+          .map:
+            _ :: chars.last :: Nil
+      .map:
+        _.mkString.toInt
       .sum
 
   private def wordReplacements(s: String): String =
@@ -30,12 +33,15 @@ object Day1 {
   def calibrateSum2: Int =
     Source
       .fromResource("day1_input.txt")
-      .getLines()
+      .getLines
       .map(wordReplacements)
-      .map(_.filter(_.isDigit))
+      .map:
+        _.filter:
+          _.isDigit
       .flatMap: chars =>
-        chars.headOption.map:
-          _ :: chars.last :: Nil
+        chars.headOption
+          .map:
+            _ :: chars.last :: Nil
       .map(_.mkString.toInt)
       .sum
 

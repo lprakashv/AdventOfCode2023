@@ -37,7 +37,10 @@ object Day2 {
             .split(",")
             .filterNot:
               _.isBlank
-            .map(_.split(" ").filterNot(_.isBlank))
+            .map:
+              _.split(" ")
+                .filterNot:
+                  _.isBlank
             .map: cubesAndColor =>
               cubesAndColor(1) -> cubesAndColor(0).toInt
         .map:
