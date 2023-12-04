@@ -7,10 +7,18 @@ object Day2 {
   private case class CubesSet(red: Int, green: Int, blue: Int):
     @targetName("add_CubeSets")
     def +(other: CubesSet): CubesSet =
-      CubesSet(red = this.red + other.red, green = this.green + other.green, blue = this.blue + other.blue)
+      CubesSet(
+        red = this.red + other.red,
+        green = this.green + other.green,
+        blue = this.blue + other.blue
+      )
 
     def maxSet(other: CubesSet): CubesSet =
-      CubesSet(red = Math.max(this.red, other.red), green = Math.max(this.green, other.green), blue = Math.max(this.blue, other.blue))
+      CubesSet(
+        red = Math.max(this.red, other.red),
+        green = Math.max(this.green, other.green),
+        blue = Math.max(this.blue, other.blue)
+      )
 
   private case class Game(ID: Int, cubeSets: List[CubesSet])
 
@@ -20,44 +28,56 @@ object Day2 {
     val idAndGames = line.split(":").map(_.trim)
     Game(
       ID = idAndGames(0).split(" ")(1).toInt,
-      cubeSets = idAndGames(1).split(";")
-        .filterNot(_.isBlank)
-        .map(cubes => cubes.trim.split(",")
-          .filterNot(_.isBlank)
-          .map(_.split(" ").filterNot(_.isBlank))
-          .map(cubesAndColor => cubesAndColor(1) -> cubesAndColor(0).toInt)
-        )
-        .map(_.toMap)
-        .map(colorToCubesMap => CubesSet(
-          red = colorToCubesMap.getOrElse("red", 0),
-          green = colorToCubesMap.getOrElse("green", 0),
-          blue = colorToCubesMap.getOrElse("blue", 0),
-        ))
+      cubeSets = idAndGames(1)
+        .split(";")
+        .filterNot:
+          _.isBlank
+        .map: cubes =>
+          cubes.trim
+            .split(",")
+            .filterNot:
+              _.isBlank
+            .map(_.split(" ").filterNot(_.isBlank))
+            .map: cubesAndColor =>
+              cubesAndColor(1) -> cubesAndColor(0).toInt
+        .map:
+          _.toMap
+        .map: colorToCubesMap =>
+          CubesSet(
+            red = colorToCubesMap.getOrElse("red", 0),
+            green = colorToCubesMap.getOrElse("green", 0),
+            blue = colorToCubesMap.getOrElse("blue", 0)
+          )
         .toList
     )
 
   private def readGameInput: List[Game] =
-    Source.fromResource("day2_input.txt")
+    Source
+      .fromResource("day2_input.txt")
       //    Source.fromFile("./src/main/resources/day2_input.txt")
-      .getLines()
+      .getLines
       .map(parseGameLine)
       .toList
 
   def sumOfIDsOfPossibleGames(red: Int, green: Int, blue: Int): Int =
     val maxCubeSetsForGame: List[(Int, CubesSet)] = readGameInput
-      .map(game => (game.ID, game.cubeSets.reduce((a, b) => a.maxSet(b))))
+      .map: game =>
+        (game.ID, game.cubeSets.reduce((a, b) => a.maxSet(b)))
 
     maxCubeSetsForGame
-      .filterNot { case (_, totalCubes) => totalCubes.red > red || totalCubes.green > green || totalCubes.blue > blue }
-      .map(_._1)
+      .filterNot: (_, totalCubes) =>
+        totalCubes.red > red || totalCubes.green > green || totalCubes.blue > blue
+      .map:
+        _._1
       .sum
-
 
   def sumOfPowersOfSets: Int =
     val maxCubeSetsForGame: List[(Int, CubesSet)] = readGameInput
-      .map(game => (game.ID, game.cubeSets.reduce((a, b) => a.maxSet(b))))
+      .map: game =>
+        (game.ID, game.cubeSets.reduce((a, b) => a.maxSet(b)))
 
     maxCubeSetsForGame
-      .map((_, maxSet) => maxSet.red * maxSet.green * maxSet.blue )
+      .map: (_, maxSet) =>
+        maxSet.red * maxSet.green * maxSet.blue
       .sum
 }

@@ -4,13 +4,16 @@ import scala.io.Source
 
 object Day1 {
   def calibrateSum1: Int =
-    Source.fromResource("day1_input.txt")
-      .getLines()
-      .map(_.filter(_.isDigit))
-      .flatMap(chars => chars.headOption.map(_ :: chars.last :: Nil))
+    Source
+      .fromResource("day1_input.txt")
+      .getLines
+      .map:
+        _.filter(_.isDigit)
+      .flatMap: chars =>
+        chars.headOption.map:
+          _ :: chars.last :: Nil
       .map(_.mkString.toInt)
       .sum
-
 
   private def wordReplacements(s: String): String =
     s.replace("zero", "z0o")
@@ -25,11 +28,14 @@ object Day1 {
       .replace("nine", "n9e")
 
   def calibrateSum2: Int =
-    Source.fromResource("day1_input.txt")
+    Source
+      .fromResource("day1_input.txt")
       .getLines()
       .map(wordReplacements)
       .map(_.filter(_.isDigit))
-      .flatMap(chars => chars.headOption.map(_ :: chars.last :: Nil))
+      .flatMap: chars =>
+        chars.headOption.map:
+          _ :: chars.last :: Nil
       .map(_.mkString.toInt)
       .sum
 
