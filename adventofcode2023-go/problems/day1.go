@@ -1,9 +1,9 @@
-package pkg
+package problems
 
 import (
 	"strings"
 
-	"com.github/lprakashv/adventofcode2023/input"
+	"com.github/lprakashv/adventofcode2023/problems/input"
 )
 
 func CalibrationSum1() int {
