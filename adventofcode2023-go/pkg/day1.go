@@ -28,7 +28,7 @@ func CalibrationSum1() int {
 }
 
 func replaceDigitWords(s string) string {
-	replacer := strings.NewReplacer(
+	replacements := []string{
 		"zero", "z0o",
 		"one", "o1e",
 		"two", "t2o",
@@ -39,11 +39,13 @@ func replaceDigitWords(s string) string {
 		"seven", "s7n",
 		"eight", "e8t",
 		"nine", "n9e",
-	)
-	return replacer.Replace(s)
+	}
+	for i := 1; i < len(replacements); i += 2 {
+		s = strings.ReplaceAll(s, replacements[i-1], replacements[i])
+	}
+	return s
 }
 
-// TODO - fix this! The answer is off by +2
 func CalibrationSum2() int {
 	sum := 0
 
@@ -63,6 +65,5 @@ func CalibrationSum2() int {
 			sum += digits[0]*10 + digits[len(digits)-1]
 		}
 	}
-
 	return sum
 }
